@@ -1,0 +1,54 @@
+author: mongoose-os
+description: A JS-enabled demo Mongoose OS firmware
+arch: esp32
+version: 1.0
+manifest_version: 2017-05-18
+libs_version: ${mos.version}
+modules_version: ${mos.version}
+mongoose_os_version: ${mos.version}
+
+config_schema:
+  - ["wifi.sta.pass",""]
+  - ["wifi.sta.ssid", ""]
+  - ["wifi.sta.enable", false]
+  - ["sntp.enable", true]
+  - ["device.id","d1"]
+  - ["wifi.ap.enable", false]
+  - ["app.reqId","s","",{title:"request id"}]
+  - ["app.reqStatus",i,0,{title:"request success status"}]
+  - ["app.req","s","",{title:"request success status"}]
+  - ["app.nextDiag","d",0,{title:"current policy"}]
+  - ["app.nodeURL","s","http://172.217.26.5",{title:"node url"}]
+  - ["app.ptoken","s","2GV73t4LAO4Jxlgq",{title:"node token"}]
+  - ["app.pmac","s","EC:FA:BC:C1:5A:9C",{title:"node mac"}]
+  - ["app.nodeId","s","EC:FA:BC:C1:5A:9C",{title:"node mac"}]
+  - ["app.activated","i",0,{title:""}]
+  - ["app.resp","s","",{title:"node resp"}]
+  - ["app.state","i",0,{title:"this node state"}]
+  - ["pppos.enable", true]
+  - ["pppos.uart_no", 2]        
+  - ["pppos.baud_rate", 9600]
+  - ["pppos.start_baud_rate", 9600]
+  - ["pppos.apn", "airtelgprs.com"]
+  - ["pppos.user", ""]
+  - ["pppos.pass", ""]
+  - ["pppos.connect_cmd", "ATD*99#"] 
+
+tags:
+  - js
+
+filesystem:
+  - fs
+
+libs:
+  - origin: https://github.com/mongoose-os-libs/boards
+  - origin: https://github.com/mongoose-os-libs/ca-bundle
+  - origin: https://github.com/mongoose-os-libs/rpc-service-config
+  - origin: https://github.com/mongoose-os-libs/rpc-service-fs
+  - origin: https://github.com/mongoose-os-libs/rpc-uart
+  - origin: https://github.com/mongoose-os-libs/mqtt
+  - origin: https://github.com/mongoose-os-libs/aws
+  - origin: https://github.com/mongoose-os-libs/mjs
+  - origin: https://github.com/mongoose-os-libs/pppos
+  - origin: https://github.com/mongoose-os-libs/ota-shadow
+  - origin: https://github.com/mongoose-os-libs/sntp

@@ -1,0 +1,100 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+  
+Globals:
+  Function:
+    Timeout: 60
+    Environment:
+      Variables:
+        API_KEY: "YlStZP8jNQd69IWXd5kE7M3dyqI3"
+
+
+Resources:
+  RegisterNodeFunction:
+    Type: AWS::Serverless::Function 
+    Properties:  
+      CodeUri: code/
+      Handler: app.regsiterationHandler
+      Runtime: nodejs12.x
+      Events:
+        Register:
+          Type: Api 
+          Properties:
+            Path: /register
+            Method: post
+
+  UnRegisterNodeFunction:
+    Type: AWS::Serverless::Function 
+    Properties:  
+      CodeUri: code/
+      Handler: app.unregsiterationHandler
+      Runtime: nodejs12.x
+      Events:
+        Register:
+          Type: Api 
+          Properties:
+            Path: /unregister
+            Method: post
+
+  SendCommandFunction:
+    Type: AWS::Serverless::Function 
+    Properties:  
+      CodeUri: code/
+      Handler: app.sendCommand
+      Runtime: nodejs12.x
+      Events:
+        Register:
+          Type: Api 
+          Properties:
+            Path: /sendCmd
+            Method: post 
+            
+  # IngestDignosticFunction:
+  #   Type: AWS::Serverless::Function 
+  #   Properties:  
+  #     CodeUri: code/
+  #     Handler: app.ingestDignostic
+  #     Runtime: nodejs12.x
+  #     Events:
+  #       IoTRule:
+  #         Type: IoTRule
+  #         Properties:
+  #           Sql: SELECT * FROM 'Dignostic/influx'  
+            
+  IngestCmdResultFunction:
+    Type: AWS::Serverless::Function 
+    Properties:  
+      CodeUri: code/
+      Handler: app.ingestCmdResult
+      Runtime: nodejs12.x
+      Events:
+        IoTRule:
+          Type: IoTRule
+          Properties:
+            Sql: SELECT * FROM 'CmdResponse/influx'  
+  GetCmdResult:
+    Type: AWS::Serverless::Function 
+    Properties:  
+      CodeUri: code/
+      Handler: app.getCmdResult
+      Runtime: nodejs12.x
+      Events:
+        Register:
+          Type: Api 
+          Properties:
+            Path: /getCmdResult
+            Method: post 
+
+  GetConnState:
+    Type: AWS::Serverless::Function 
+    Properties:  
+      CodeUri: code/
+      Handler: app.getConnState
+      Runtime: nodejs12.x
+      Events:
+        Register:
+          Type: Api 
+          Properties:
+            Path: /getConnState
+            Method: post            
+    
